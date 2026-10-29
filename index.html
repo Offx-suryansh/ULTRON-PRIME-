@@ -1,18 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTRON PRIME</title>
-  <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080a0f">
+  <meta name="description" content="ULTRON PRIME — a minimalist voice-first personal assistant for the web.">
+  <meta property="og:title" content="ULTRON PRIME">
+  <meta property="og:description" content="A voice-first personal assistant for the web.">
+  <meta property="og:type" content="website">
+  <title>ULTRON PRIME — Voice Assistant</title>
+  <link rel="icon" href="logo.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <img src="logo.jpg" alt="logo" id="logo">
-    <h1><span id="name">ULTRON</span> <span id="va">PRIME</span></h1>
-    <img src="voice.gif" alt="voice" id="voice">
-    <button id="btn"><img src="mic.svg" alt="mic"><span id="content"> Click here for talk to me</span> </button>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Ultron Prime home">
+      <img src="logo.jpg" alt="ULTRON PRIME logo" id="logo">
+      <span class="brand-copy"><strong>ULTRON <i>PRIME</i></strong><small>PERSONAL ASSISTANT</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="system-status"><span class="status-dot"></span><span id="systemStatus">SYSTEM READY</span></span>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+      </button>
+    </div>
+  </header>
 
-    <script src="script.js"></script>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> YOUR SPACE. YOUR COMMAND.</div>
+      <h1>How can I <span>help?</span></h1>
+      <p class="hero-copy">Talk naturally. Get things done.</p>
+
+      <div class="core-wrap">
+        <div class="core-halo halo-a"></div>
+        <div class="core-halo halo-b"></div>
+        <button id="listenButton" class="core-button" type="button" aria-label="Start voice listening">
+          <span class="core-inner">
+            <svg class="mic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3"></rect><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M8.5 21.5h7"></path></svg>
+          </span>
+        </button>
+        <div class="core-label" id="coreLabel">TAP TO SPEAK</div>
+      </div>
+
+      <div class="transcript-panel" aria-live="polite">
+        <span class="transcript-mark"></span>
+        <p id="transcript">I’m listening whenever you’re ready.</p>
+        <span class="listening-bars" id="listeningBars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+
+      <form id="commandForm" class="command-form" autocomplete="off">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+        <input id="commandInput" type="text" placeholder="Type a command or ask anything..." aria-label="Type a command" maxlength="500">
+        <button type="submit" id="sendButton">Run command <span>↗</span></button>
+      </form>
+      <div class="privacy-note"><span class="lock-icon">⌁</span> Voice is processed by your browser. No account required.</div>
+    </section>
+
+    <section class="workspace">
+      <div class="section-heading">
+        <div><span class="eyebrow">QUICK ACCESS</span><h2>Make it happen.</h2></div>
+        <button class="text-button" id="helpButton" type="button">All commands <span>↗</span></button>
+      </div>
+      <div class="quick-grid">
+        <button class="quick-card" data-command="open YouTube" type="button">
+          <span class="quick-icon youtube">▶</span><span class="quick-copy"><strong>YouTube</strong><small>Open video platform</small></span><span class="card-arrow">↗</span>
+        </button>
+        <button class="quick-card" data-command="open Google" type="button">
+          <span class="quick-icon google">G</span><span class="quick-copy"><strong>Google</strong><small>Search the web</small></span><span class="card-arrow">↗</span>
+        </button>
+        <button class="quick-card" data-command="open Instagram" type="button">
+          <span class="quick-icon instagram">◎</span><span class="quick-copy"><strong>Instagram</strong><small>Open social feed</small></span><span class="card-arrow">↗</span>
+        </button>
+        <button class="quick-card" data-command="what time is it" type="button">
+          <span class="quick-icon clock">◷</span><span class="quick-copy"><strong>Time & date</strong><small>Know the moment</small></span><span class="card-arrow">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="activity-section">
+      <div class="section-heading activity-heading">
+        <div><span class="eyebrow">SESSION</span><h2>Recent activity</h2></div>
+        <button class="text-button subtle" id="clearHistory" type="button">Clear history</button>
+      </div>
+      <div id="activityList" class="activity-list">
+        <div class="empty-state"><span>↳</span><p>Your commands will appear here.</p></div>
+      </div>
+    </section>
+
+    <section class="developer-section" aria-labelledby="developerTitle">
+      <div class="section-heading developer-heading">
+        <div><span class="eyebrow">LET’S CONNECT</span><h2 id="developerTitle">Contact developer</h2></div>
+        <span class="developer-status"><span class="status-dot"></span> AVAILABLE ONLINE</span>
+      </div>
+      <p class="developer-intro">Questions, feedback, or ideas? Get in touch or explore my work.</p>
+      <div class="developer-links">
+        <a class="developer-link" href="mailto:sharmasuryansh159@gmail.com"><span class="developer-link-icon">@</span><span class="developer-link-copy"><strong>Email</strong><small>sharmasuryansh159@gmail.com</small></span><span class="card-arrow" aria-hidden="true">↗</span></a>
+        <a class="developer-link" href="https://www.linkedin.com/in/offxsuryansh/" target="_blank" rel="noopener noreferrer"><span class="developer-link-icon">in</span><span class="developer-link-copy"><strong>LinkedIn</strong><small>Connect professionally</small></span><span class="card-arrow" aria-hidden="true">↗</span></a>
+        <a class="developer-link" href="https://github.com/Offx-suryansh" target="_blank" rel="noopener noreferrer"><span class="developer-link-icon">⌘</span><span class="developer-link-copy"><strong>GitHub</strong><small>Explore my projects</small></span><span class="card-arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <a class="portfolio-link" href="https://suryanshsharma.runs-at.dev/" target="_blank" rel="noopener noreferrer"><span><strong>Know more about developer</strong><small>Visit my personal portfolio</small></span><span class="portfolio-arrow" aria-hidden="true">↗</span></a>
+    </section>
+    <footer><span>ULTRON PRIME <span class="footer-separator">/</span> BUILT FOR THE WEB</span><button id="footerHelp" type="button">COMMAND GUIDE</button></footer>
+  </main>
+
+  <dialog id="helpDialog" class="help-dialog">
+    <div class="dialog-head"><div><span class="eyebrow">QUICK REFERENCE</span><h2>Command guide</h2></div><button id="closeHelp" class="icon-button close-button" type="button" aria-label="Close command guide">×</button></div>
+    <p class="dialog-intro">Speak or type naturally. Here are a few things you can try.</p>
+    <div class="command-list">
+      <div><span>01</span><p><strong>Open a website</strong><small>“Open YouTube”, “Open GitHub”, “Open WhatsApp”</small></p></div>
+      <div><span>02</span><p><strong>Search the web</strong><small>“Search for Java constructors”, “Who is Ada Lovelace?”</small></p></div>
+      <div><span>03</span><p><strong>Get the time</strong><small>“What time is it?”, “What is today’s date?”</small></p></div>
+      <div><span>04</span><p><strong>Do quick calculations</strong><small>“Calculate 45 times 12”, “What is 120 divided by 6?”</small></p></div>
+      <div><span>05</span><p><strong>Control the page</strong><small>“Scroll down”, “Scroll to top”, “Clear history”</small></p></div>
+      <div><span>06</span><p><strong>Ask Ultron</strong><small>“Who are you?”, “What can you do?”, “Tell me a joke”</small></p></div>
+    </div>
+    <p class="dialog-note">Voice recognition requires a supported browser and microphone permission. Use HTTPS when published.</p>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
